@@ -1,5 +1,7 @@
 import 'package:blog_provider/models/blog_post.dart';
 import 'package:blog_provider/screens/home_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'models/user.dart';
 
 void main() {
+  Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -32,12 +35,23 @@ final _blogPost = [
       "This is the body of the blog and all the data posted will be available to the viewer here"),
 ];
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    Firebase.initializeApp();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    blogPost();
     return ScreenUtilInit(
         designSize: ScreenUtil.defaultSize,
         builder: () {
@@ -48,6 +62,9 @@ class MyApp extends StatelessWidget {
                   create: (context) => User(
                       name: "Flutter Dev",
                       profilePic: 'https://picsum.photos/id/237/200/300')),
+              // FutureProvider<List<BlogPost>>(
+              //   create: (context) => blogPost(),
+              // )
             ],
             child: MaterialApp(
               title: 'Flutter blog',
@@ -58,4 +75,13 @@ class MyApp extends StatelessWidget {
           );
         });
   }
+}
+
+// Future<List<BlogPost>>
+void blogPost() {
+  FirebaseFirestore.instance.collection("blogs").get().then((value) {
+    List l = value.docs;
+    print(l[0]);
+    // return null
+  });
 }

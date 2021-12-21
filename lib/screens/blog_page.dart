@@ -17,14 +17,15 @@ class BlogPage extends StatelessWidget {
         ConstrainedCentre(
           child: CircleAvatar(
             radius: 54.r,
-            backgroundImage: NetworkImage(user.profilePic),
+            backgroundImage: NetworkImage(
+                user.profilePic ?? "https://picsum.photos/id/237/200/300"),
           ),
         ),
         SizedBox(
           height: 18.h,
         ),
         ConstrainedCentre(
-          child: SelectableText(user.name,
+          child: SelectableText(user.name ?? "Flutter Dev",
               style: Theme.of(context).textTheme.headline5),
         ),
         SizedBox(

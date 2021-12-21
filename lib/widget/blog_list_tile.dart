@@ -2,8 +2,6 @@ import 'package:blog_provider/models/blog_post.dart';
 import 'package:blog_provider/screens/blog_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 class BlogListTile extends StatelessWidget {
   const BlogListTile({Key? key, this.post}) : super(key: key);

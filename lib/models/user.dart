@@ -1,8 +1,8 @@
 class User {
-  String profilePic;
-  String name;
+  String? profilePic;
+  String? name;
   User({
-    required this.profilePic,
-    required this.name,
+    this.profilePic,
+    this.name,
   });
 }
